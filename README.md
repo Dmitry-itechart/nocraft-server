@@ -9,7 +9,7 @@ Install `java8(jdk)`, `maven`, `docker`, `docker-compose`
 #### How to build for local docker?
 
 ```bash
-mvn jib:dockerBuild
+mvn package jib:dockerBuild
 ```
 pay attention to:
 

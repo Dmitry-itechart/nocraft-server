@@ -1,9 +1,12 @@
 version: "3.7"
 services:
   nocraft:
-    image: dzmitryitechart/nocraft-server:latest
+    build:
+      context: .
+    image: dzmitryitechart/nocraft-server:local
     container_name: nocraft
     ports:
-      - 8080:8080
+      - 9080:9080
     environment:
+      - server.port=9080
       - image.path=https://picsum.photos/300
