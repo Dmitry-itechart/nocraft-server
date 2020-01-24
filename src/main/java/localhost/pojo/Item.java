@@ -2,12 +2,14 @@ package localhost.pojo;
 
 import lombok.Data;
 
+import java.net.URL;
 import java.util.UUID;
 
 @Data
 public class Item {
 
-    private String foo = UUID.randomUUID().toString();
-    private String bar = UUID.randomUUID().toString();
+    private String title = UUID.randomUUID().toString();
+    private URL img;
+    private String description = UUID.randomUUID().toString();
 
 }

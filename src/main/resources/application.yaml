@@ -6,4 +6,5 @@ keycloak:
   credentials:
     secret: "234234-234234-234234"
 
+image.path: "https://picsum.photos/200"
 
