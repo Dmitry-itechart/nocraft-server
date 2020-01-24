@@ -6,4 +6,4 @@ services:
     ports:
       - 8080:8080
     environment:
-      - image.path: https://picsum.photos/300
+      - image.path=https://picsum.photos/300
