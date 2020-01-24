@@ -1,0 +1,9 @@
+keycloak:
+  realm: Demo
+  auth-server-url: http://localhost:7070/auth
+  ssl-required: none
+  resource: site3-oauth
+  credentials:
+    secret: "234234-234234-234234"
+
+
