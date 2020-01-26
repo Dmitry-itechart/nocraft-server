@@ -1,6 +1,6 @@
 package localhost.rest.open;
 
-import localhost.pojo.Item;
+import localhost.service.pojo.Item;
 import localhost.service.DummyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,8 +1,4 @@
-FROM openjdk:8
-
-ARG DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get install -y bash
+FROM openjdk:11
 
 RUN addgroup spring && useradd -M spring -g spring
 
