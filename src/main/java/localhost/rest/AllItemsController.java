@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.List;
 
-import static localhost.Application.PUBLIC;
+import static localhost.Application.API;
 
 /**
  * try to fetch from all items providers. If any of providers is restricted - whole request is restricted.
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(PUBLIC + "/all")
-public class RestAll {
+@RequestMapping(API + "/all")
+public class AllItemsController {
 
     private final CompositeDummyService service;
 

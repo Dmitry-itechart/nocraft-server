@@ -12,8 +12,6 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
-import static localhost.Application.PUBLIC;
-
 @Configuration
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
@@ -24,7 +22,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
 
-    // Specifies the session authentication strategy
     @Bean
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
@@ -34,16 +31,10 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.authorizeRequests()
-                .antMatchers("/")
-                .permitAll()
-                .and()
+        http
                 .authorizeRequests()
-                .antMatchers(PUBLIC)
-                /*
-                 * Here we force to create sessions for /api endpoint
-                 * since we are going to distinguish anonymous and keycloak auth..s
-                 * */
-                .authenticated();
+                .anyRequest()
+                .permitAll()
+        ;
     }
 }

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static localhost.Application.PUBLIC;
+import static localhost.Application.API;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(PUBLIC + "/profile")
-public class RestPublicProfile {
+@RequestMapping(API + "/profile")
+public class CurrentProfileController {
 
     private final CurrentProfileInfo info;
 

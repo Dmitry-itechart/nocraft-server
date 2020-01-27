@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.List;
 
-import static localhost.Application.PUBLIC;
+import static localhost.Application.API;
 
 /**
  * Fetch data from non-anonymous data provider
  */
 @RestController
-@RequestMapping(PUBLIC + "/nonanon")
-public class RestNotAnon {
+@RequestMapping(API + "/nonanon")
+public class NotAnononymousController {
 
     private DummyServiceInterface service;
 

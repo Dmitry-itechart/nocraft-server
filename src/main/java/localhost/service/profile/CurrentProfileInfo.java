@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+/**
+ * determine authentication type and extract data accordingly
+ */
 @Component
 public class CurrentProfileInfo {
 

@@ -15,7 +15,7 @@ public class HasNoRoleDummyService implements DummyServiceInterface {
 
     private final DummyService service;
 
-    @Secured("NOROLE")
+    @Secured("ROLE_NOROLE")
     @Override
     public Optional<List<Item>> getItems() {
         return Optional.of(service.getItems("NOROLE -> ", 2));

@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 public class Application {
 
-    public static final String PUBLIC = "/api";
+    public static final String API = "/api";
 
     public static void main(String[] args)
     {

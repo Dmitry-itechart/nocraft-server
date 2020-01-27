@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.List;
 
-import static localhost.Application.PUBLIC;
+import static localhost.Application.API;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(PUBLIC)
-public class RestPublic {
+@RequestMapping(API)
+public class NoAuthenticationRequiredController {
 
+    // here we can inject by class name directly since
+    // it is not proxied as not using security specific annotations.
     private final PublicDummyService service;
 
     @GetMapping

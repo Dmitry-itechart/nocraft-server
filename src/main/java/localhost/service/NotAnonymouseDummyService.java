@@ -20,7 +20,6 @@ public class NotAnonymouseDummyService implements DummyServiceInterface {
 
     private final DummyService service;
 
-    // anyone who is not anonymous
     @PreAuthorize("!isAnonymous()")
     @Override
     public Optional<List<Item>> getItems() {
