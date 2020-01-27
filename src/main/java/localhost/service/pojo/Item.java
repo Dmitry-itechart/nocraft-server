@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 public class Item {
 
-    private String title = UUID.randomUUID().toString();
+    private String title;
     private URL img;
     private String description = UUID.randomUUID().toString();
 

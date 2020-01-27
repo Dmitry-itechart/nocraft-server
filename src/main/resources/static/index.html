@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <title>proof of concept</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<h1>PoC welcomes you!</h1>
+<p>We have next public accessible api:</p>
+<ul>
+    <li>You can always check for your current profile <a target="_blank" href="/api/profile">here.</a>
+        This will open json response in new tab, shows current session information.
+    </li>
+    <li><a target="_blank" href="/api">This api</a> is accessible without authentication</li>
+</ul>
+<p>This is list of restricted api that will force you to authenticate against keycloak:</p>
+<ul>
+    <li><a target="_blank" href="/api/nonanon">This api</a> requires non-anonymous authentication</li>
+    <li><a target="_blank" href="/api/def">This api</a> requires 'uma_authorization' (one obtained from keycloak by
+        default)
+    </li>
+    <li><a target="_blank" href="/api/all">This api</a> requires 'NOROLE' role which is not default and must be
+        configured in keycloak in advance. Normally user will get 403 here.
+    </li>
+</ul>
+</body>
+</html>

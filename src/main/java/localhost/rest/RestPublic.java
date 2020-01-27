@@ -1,25 +1,26 @@
-package localhost.rest.restricted;
+package localhost.rest;
 
+import localhost.service.PublicDummyService;
 import localhost.service.pojo.Item;
-import localhost.service.DummyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
-import static localhost.Application.RESTRICTED;
+import static localhost.Application.PUBLIC;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(RESTRICTED)
-public class RestRestricted {
+@RequestMapping(PUBLIC)
+public class RestPublic {
 
-    private final DummyService service;
+    private final PublicDummyService service;
 
     @GetMapping
-    public List<Item> getFooBar() {
-        return service.getItems();
+    public List<Item> getItems() {
+        return service.getItems().orElse(Collections.emptyList());
     }
 }
