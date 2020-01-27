@@ -24,6 +24,7 @@ pay attention to pom.xml:
 ```
 will be published with tag 0.3 in above command.
 
+Images will be published here: https://hub.docker.com/u/dzmitryitechart
 
 #### How to run from docker-compose?
 
