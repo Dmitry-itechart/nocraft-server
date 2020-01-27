@@ -1,6 +1,6 @@
 package localhost.service;
 
-import localhost.pojo.Item;
+import localhost.service.pojo.Item;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,4 @@ public class DummyService {
         }
         return list;
     }
-
-
 }

@@ -1,4 +1,4 @@
-package localhost.pojo;
+package localhost.service.pojo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

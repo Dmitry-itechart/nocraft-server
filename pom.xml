@@ -12,11 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
 
-        <image.path>dzmitryitechart/nocraft-server:0.2</image.path>
+        <image.path>dzmitryitechart/nocraft-server:0.3</image.path>
 
         <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
         <keycloack.version>8.0.1</keycloack.version>
@@ -93,12 +90,24 @@
     </dependencies>
 
     <build>
+
         <finalName>app</finalName>
+
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
                 <executions>
                     <execution>
                         <goals>

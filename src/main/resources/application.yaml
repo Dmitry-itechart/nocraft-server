@@ -1,6 +1,9 @@
+server:
+  port: 9080
+
 keycloak:
   realm: Demo
-  auth-server-url: http://localhost:7070/auth
+  auth-server-url: http://keycloak:8080/auth
   ssl-required: none
   resource: site3-oauth
   credentials:
