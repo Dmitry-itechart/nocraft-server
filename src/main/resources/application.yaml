@@ -2,12 +2,13 @@ server:
   port: 9080
 
 keycloak:
-  realm: Demo
-  auth-server-url: http://keycloak:8080/auth
-  ssl-required: none
-  resource: site3-oauth
-  credentials:
-    secret: "234234-234234-234234"
+  realm: "Demo"
+  bearer-only: true
+  auth-server-url: "http://keycloak:8080/auth/"
+  ssl-required: "external"
+  resource: "server-bearer-only"
+  confidential-port: 0
+
 
 image.path: "https://picsum.photos/200"
 
