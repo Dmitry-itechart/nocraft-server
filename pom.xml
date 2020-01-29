@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <image.path>dzmitryitechart/nocraft-server:0.4</image.path>
+        <image.path>dzmitryitechart/nocraft-server:0.4.3</image.path>
 
         <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
         <keycloack.version>8.0.1</keycloack.version>
