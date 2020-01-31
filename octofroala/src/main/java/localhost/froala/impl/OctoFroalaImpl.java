@@ -10,7 +10,6 @@ import org.kohsuke.github.GHContentUpdateResponse;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
-import javax.annotation.PostConstruct;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,8 +28,7 @@ public class OctoFroalaImpl implements OctoFroala {
 
     private GHRepository git;
 
-    @PostConstruct
-    void init() throws IOException {
+    public void init() throws IOException {
         GitHub server = GitHub.connect(login, oauthAccessToken);
         git = server.getRepository(login + "/" + repository);
     }

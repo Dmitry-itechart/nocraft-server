@@ -13,8 +13,7 @@ public class Application {
 
     public static final String API = "/api";
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 }

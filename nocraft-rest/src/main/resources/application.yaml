@@ -12,3 +12,10 @@ keycloak:
   resource: "site3-oauth"
   confidential-port: 0
   public-client: true
+
+froala:
+  git:
+    username:
+    token:
+    repository:
+
