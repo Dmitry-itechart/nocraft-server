@@ -34,7 +34,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         super.configure(http);
         http.authorizeRequests().anyRequest().authenticated();
         http.anonymous().disable();
-        http.csrf().disable();
+        http.cors().disable();
     }
 
 //    @Bean
