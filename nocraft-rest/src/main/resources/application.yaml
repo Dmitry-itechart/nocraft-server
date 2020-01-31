@@ -1,0 +1,14 @@
+server:
+  port: 9080
+  servlet:
+    session:
+      cookie:
+        name: NOCRAFTC
+
+keycloak:
+  realm: "Demo"
+  auth-server-url: "http://keycloak:8080/auth/"
+  ssl-required: "external"
+  resource: "site3-oauth"
+  confidential-port: 0
+  public-client: true

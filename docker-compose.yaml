@@ -2,14 +2,14 @@ version: "3.7"
 services:
   nocraft:
     build:
-      context: .
+      context: ./nocraft-rest
     image: dzmitryitechart/nocraft-server:local
     container_name: nocraft
     ports:
-      - 9080:9080
-      - 19080:19080
+      - 127.0.0.1:9080:9080
+      - 127.0.0.1:19080:19080
     environment:
       - server.port=9080
       - image.path=https://picsum.photos/300
       - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=19080"
-      - keycloak.auth-server-url=http://localhost:8080/auth
+      - keycloak.auth-server-url=http://keycloak:8080/auth
