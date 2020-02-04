@@ -12,6 +12,7 @@
     <modules>
         <module>octofroala</module>
         <module>nocraft-rest</module>
+        <module>octokit-github</module>
     </modules>
 
     <properties>
@@ -21,6 +22,7 @@
         <image.path>dzmitryitechart/nocraft-server:0.7-nosec</image.path>
 
         <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
+        <github.rest.koshuke>1.106</github.rest.koshuke>
         <keycloack.version>8.0.1</keycloack.version>
         <lombok.version>1.18.10</lombok.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
@@ -33,6 +35,18 @@
                 <artifactId>octofroala</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>localhost</groupId>
+                <artifactId>octokit-github</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.kohsuke</groupId>
+                <artifactId>github-api</artifactId>
+                <version>${github.rest.koshuke}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

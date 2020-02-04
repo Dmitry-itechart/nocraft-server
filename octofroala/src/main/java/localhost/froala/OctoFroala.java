@@ -1,20 +1,25 @@
 package localhost.froala;
 
-import java.io.IOException;
-import java.util.Optional;
+import localhost.froala.event.OctoEffect;
+import localhost.froala.event.OctoEvent;
 
-public interface OctoFroala {
+import java.util.Collection;
+import java.util.stream.Stream;
 
-    /**
-     * Get git file content
-     *
-     * @param path - git paht. Root is empty list.
-     * @return froala if file found, empty if not
-     * @throws IOException if something going wrong
-     */
-    Optional<Froala> getFroala(Octopath path) throws IOException;
+public interface OctoFroala extends OctoKit {
 
-    // really void?
-    void commitFroala(Octopath path, Froala froala) throws IOException;
+    default void addListener(OctoFroalaListener l) {
+        getListeners().add(l);
+    }
+
+    default boolean removeListener(OctoFroalaListener l) {
+        return getListeners().remove(l);
+    }
+
+    default Stream<OctoEffect> notifyAll(OctoEvent e) {
+        return getListeners().parallelStream().map(l -> l.onOctoEvent(e));
+    }
+
+    Collection<OctoFroalaListener> getListeners();
 
 }

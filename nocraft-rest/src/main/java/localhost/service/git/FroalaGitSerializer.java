@@ -24,6 +24,7 @@ public class FroalaGitSerializer {
     }
 
     String convert(FroalaBasket basket) throws JsonProcessingException {
-        return om.writeValueAsString(basket);
+        // git files requires new line at the end, may be some elegant solution later.
+        return om.writeValueAsString(basket) + System.lineSeparator();
     }
 }

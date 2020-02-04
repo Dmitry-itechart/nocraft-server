@@ -14,6 +14,8 @@ keycloak:
   public-client: true
 
 froala:
+  ui:
+    url:
   git:
     username:
     token:

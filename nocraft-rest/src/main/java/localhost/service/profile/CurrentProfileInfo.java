@@ -28,6 +28,8 @@ public class CurrentProfileInfo {
             OidcKeycloakAccount details = (OidcKeycloakAccount) tk.getDetails();
 
             AccessToken token = details.getKeycloakSecurityContext().getToken();
+
+            // here a lot of unused info, we may refactor it someday.
             p.setToken(token);
 
             String email = tk.getAccount().getKeycloakSecurityContext().getToken().getEmail();
