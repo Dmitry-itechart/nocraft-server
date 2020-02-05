@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <image.path>dzmitryitechart/nocraft-server:0.7-nosec</image.path>
+        <image.path>dzmitryitechart/nocraft-server:0.8-nosec</image.path>
 
         <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
         <github.rest.koshuke>1.106</github.rest.koshuke>
