@@ -1,6 +1,6 @@
 package localhost.froala;
 
-public interface Froala<T> {
+public interface Froala {
 
     String getFroala();
 

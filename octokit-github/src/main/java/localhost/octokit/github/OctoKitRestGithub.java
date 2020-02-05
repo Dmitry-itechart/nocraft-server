@@ -1,15 +1,19 @@
 package localhost.octokit.github;
 
 import localhost.froala.Froala;
+import localhost.froala.OctoFile;
 import localhost.froala.OctoKit;
 import localhost.froala.Octopath;
 import localhost.froala.event.OctoEffect;
 import localhost.froala.event.OctoEffectImpl;
-import localhost.froala.impl.FroalaImpl;
+import localhost.froala.impl.FroalaTextImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
+import org.kohsuke.github.GHBranch;
+import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHContent;
 import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GHTreeBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +38,7 @@ public class OctoKitRestGithub implements OctoKit {
                 var item = opItem.get();
                 try (InputStream in = item.read()) {
                     var asString = String.join("", IOUtils.readLines(in));
-                    return Optional.of(new FroalaImpl(asString));
+                    return Optional.of(new FroalaTextImpl(asString));
                 }
             }
         } catch (IOException e) {
@@ -61,6 +65,33 @@ public class OctoKitRestGithub implements OctoKit {
         } catch (IOException e) {
             return new OctoEffectImpl(false);
         }
+
+        return new OctoEffectImpl();
+    }
+
+    @Override
+    public OctoEffect commitFroala(Octopath path, Froala froala, List<OctoFile> list) throws IOException {
+
+        // here assume all commits came to master branch
+        GHBranch masterBranch = git.getBranch("master");
+
+        GHTreeBuilder builder = git.createTree().baseTree(masterBranch.getSHA1());
+        list.forEach(f ->
+                builder.add(
+                        f.getFilePath().getItemPath(),
+                        f.getFileContent(),
+                        false)
+        );
+        builder.add(path.getItemPath(), froala.getFroala(), false);
+        var tree = builder.create();
+
+        GHCommit commit = git.createCommit()
+                .tree(tree.getSha())
+                .parent(masterBranch.getSHA1())
+                .message(getCommitMessage(path))
+                .create();
+
+        git.getRef("heads/master").updateTo(commit.getSHA1());
 
         return new OctoEffectImpl();
     }

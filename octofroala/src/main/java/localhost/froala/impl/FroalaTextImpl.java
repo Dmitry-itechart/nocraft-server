@@ -4,7 +4,7 @@ import localhost.froala.Froala;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FroalaImpl implements Froala<String> {
+public class FroalaTextImpl implements Froala {
 
     private final String content;
 

@@ -1,7 +1,7 @@
 package localhost.rest.git;
 
 
-import localhost.rest.git.pojo.FroalaBasket;
+import localhost.rest.git.pojo.FroalaInputBasket;
 import localhost.service.git.GitFroalatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +29,11 @@ public class SaveItToGitController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity commitFroala(@RequestBody FroalaBasket froalaList) throws IOException {
+    public ResponseEntity commitFroala(@RequestBody FroalaInputBasket froalaList) throws IOException {
         // log, or some more meaning value?
 
+        // one more, we need to determine floara type and use different flows for different
+        // froala types like text-based or with images.
         service.commit(froalaList);
 
         return ResponseEntity.ok().build();

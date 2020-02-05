@@ -3,6 +3,7 @@ package localhost.froala;
 import localhost.froala.event.OctoEffect;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,6 +25,9 @@ public interface OctoKit {
 
     // really void?
     OctoEffect commitFroala(Octopath path, Froala froala) throws IOException;
+
+
+    OctoEffect commitFroala(Octopath path, Froala froala, List<OctoFile> list) throws IOException;
 
 
 }

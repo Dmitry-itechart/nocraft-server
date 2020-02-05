@@ -1,12 +1,12 @@
 package localhost.rest.git.pojo;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Data
 @Valid
@@ -21,6 +21,6 @@ public class FroalaBasket {
     private String componentName;
 
     @NotEmpty
-    private List<OneFroala> elements;
+    private JsonNode elements;
 
 }

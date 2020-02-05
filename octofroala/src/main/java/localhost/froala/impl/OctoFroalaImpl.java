@@ -1,6 +1,7 @@
 package localhost.froala.impl;
 
 import localhost.froala.Froala;
+import localhost.froala.OctoFile;
 import localhost.froala.OctoFroala;
 import localhost.froala.OctoFroalaListener;
 import localhost.froala.OctoKit;
@@ -31,7 +32,26 @@ public class OctoFroalaImpl implements OctoFroala {
     public OctoEffect commitFroala(Octopath path, Froala froala) throws IOException {
         var mainResult = octoKit.commitFroala(path, froala);
 
-        var fails = this.notifyAll(new CommitEvent())
+        var fails = this.notifyAllStream(new CommitEvent())
+                .filter(e -> !e.isOk()).collect(Collectors.toList());
+
+        // log fail here?
+
+        if (fails.isEmpty()) {
+            return new OctoEffectImpl(true);
+        } else {
+            return new OctoEffectImpl(false);
+        }
+    }
+
+    @Override
+    public OctoEffect commitFroala(Octopath path, Froala froala, List<OctoFile> list) throws IOException {
+
+        // track effects?
+
+        var mainResult = octoKit.commitFroala(path, froala, list);
+
+        var fails = this.notifyAllStream(new CommitEvent())
                 .filter(e -> !e.isOk()).collect(Collectors.toList());
 
         // log fail here?
