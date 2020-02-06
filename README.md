@@ -1,8 +1,9 @@
-# No craft server with keycloak authentication.
+# Nocraft + github client server
 
 #### What it is?
 
-Just a simple spring boot reactive service serving random json. Assume server started on 9080.
+Simple spring boot server capable to publish edits from froala UI editor to github.
+Assume server started on 9080.
 Latest assembled image can be found on dockerhub: https://hub.docker.com/u/dzmitryitechart
 
 #### Prerequisites
@@ -14,7 +15,7 @@ Install `java11(jdk)`, `maven`, `docker`, `docker-compose`
 
 Make sure you are have docker registry credentials, and run:
 ```bash
-mvn package jib:dockerBuild
+mvn clean package
 ```
 
 pay attention to pom.xml:
