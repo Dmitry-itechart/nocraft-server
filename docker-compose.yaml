@@ -3,13 +3,18 @@ services:
   nocraft:
     build:
       context: ./nocraft-rest
-    image: dzmitryitechart/nocraft-server:local
+      image: dzmitryitechart/nocraft-server:local
     container_name: nocraft
     ports:
       - 127.0.0.1:9080:9080
       - 127.0.0.1:19080:19080
     environment:
-      - server.port=9080
       - image.path=https://picsum.photos/300
-      - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=19080"
       - keycloak.auth-server-url=http://keycloak:8080/auth
+      - server.port=9080
+      - logging.level.root=INFO
+      - froala.git.username=${GIT_USER}
+      - froala.git.token=${GIT_TOKEN}
+      - froala.git.repository=${GIT_REPO}
+      - froala.ui.url=http://dev:4201
+      - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=19080"
