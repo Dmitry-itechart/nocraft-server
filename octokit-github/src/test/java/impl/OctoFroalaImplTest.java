@@ -5,8 +5,8 @@ import localhost.froala.OctoFile;
 import localhost.froala.OctoKit;
 import localhost.froala.Octopath;
 import localhost.froala.impl.FroalaTextImpl;
-import localhost.froala.impl.OctoFileImpl;
 import localhost.froala.impl.OctoFroalaImpl;
+import localhost.froala.impl.OctoTextFileImpl;
 import localhost.froala.impl.OctopathImpl;
 import localhost.octokit.github.OctoKitGithubDeveloperTokenBuilder;
 import org.apache.commons.io.IOUtils;
@@ -71,8 +71,7 @@ class OctoFroalaImplTest {
 
         var sContent = String.join("", list);
 
-        OctoFile f = new OctoFileImpl()
-                .setFilePath(new OctopathImpl("", "image.png"))
+        OctoFile f = new OctoTextFileImpl(new OctopathImpl("", "image.png"))
                 .setFileContent(sContent);
 
         String s = "piu piu " + UUID.randomUUID().toString();

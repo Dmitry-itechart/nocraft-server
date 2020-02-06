@@ -4,11 +4,12 @@ import localhost.froala.OctoFile;
 import localhost.froala.OctoFroala;
 import localhost.froala.OctoFroalaListener;
 import localhost.froala.Octopath;
+import localhost.froala.effect.OctoEffect;
 import localhost.froala.impl.FroalaTextImpl;
-import localhost.froala.impl.OctoFileImpl;
 import localhost.froala.impl.OctoFroalaImpl;
 import localhost.froala.impl.OctopathImpl;
 import localhost.octokit.github.OctoKitGithubDeveloperTokenBuilder;
+import localhost.rest.git.FroalaFileDeserializer;
 import localhost.rest.git.pojo.FroalaBasket;
 import localhost.rest.git.pojo.FroalaInputBasket;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +50,7 @@ public class GitFroalatorService {
         octoFroala = new OctoFroalaImpl(kit, listeners);
     }
 
-    public void commit(FroalaInputBasket basket) throws IOException {
+    public OctoEffect commit(FroalaInputBasket basket) throws IOException {
         Octopath path = new OctopathImpl(basket.getPath(), basket.getComponentName());
 
         FroalaBasket cutOff = new FroalaBasket();
@@ -61,17 +62,11 @@ public class GitFroalatorService {
 
         // we may want to refactor this later.
         if (basket.getFiles().isEmpty()) {
-            octoFroala.commitFroala(path, froala);
+            return octoFroala.commitFroala(path, froala);
         } else {
-
-            List<OctoFile> files = basket.getFiles().stream().map(f ->
-                    new OctoFileImpl()
-                            .setFilePath(new OctopathImpl(f.getFilePath(), f.getFileName()))
-                            .setFileContent(f.getBase64())
-            )
-                    .collect(Collectors.toList());
-
-            octoFroala.commitFroala(path, froala, files);
+            List<OctoFile> files = basket.getFiles().stream()
+                    .map(FroalaFileDeserializer::decode).collect(Collectors.toList());
+            return octoFroala.commitFroala(path, froala, files);
         }
     }
 }

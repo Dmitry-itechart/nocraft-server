@@ -1,8 +1,9 @@
 package localhost.service.git;
 
 import localhost.froala.OctoFroalaListener;
-import localhost.froala.event.OctoEffect;
-import localhost.froala.event.OctoEffectImpl;
+import localhost.froala.effect.CommitEffectImpl;
+import localhost.froala.effect.KickPullOctoEffect;
+import localhost.froala.effect.OctoEffect;
 import localhost.froala.event.OctoEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,13 @@ public class DockerGitPullKicker implements OctoFroalaListener {
         try {
             ResponseEntity resp = template.getForEntity(properties.getUrl(), ResponseEntity.class);
             if (resp.getStatusCode().isError()) {
-                return new OctoEffectImpl(false);
+                return new KickPullOctoEffect().isOk(false);
+            } else {
+                return new KickPullOctoEffect().url(properties.getUrl()).code(resp.getStatusCodeValue());
             }
         } catch (RestClientException e) {
             // log it here?
-
-            return new OctoEffectImpl(false);
+            return new CommitEffectImpl().isOk(false);
         }
-        return new OctoEffectImpl();
     }
 }

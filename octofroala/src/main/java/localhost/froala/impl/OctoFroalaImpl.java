@@ -6,16 +6,14 @@ import localhost.froala.OctoFroala;
 import localhost.froala.OctoFroalaListener;
 import localhost.froala.OctoKit;
 import localhost.froala.Octopath;
+import localhost.froala.effect.OctoEffect;
 import localhost.froala.event.CommitEvent;
-import localhost.froala.event.OctoEffect;
-import localhost.froala.event.OctoEffectImpl;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class OctoFroalaImpl implements OctoFroala {
@@ -32,35 +30,14 @@ public class OctoFroalaImpl implements OctoFroala {
     public OctoEffect commitFroala(Octopath path, Froala froala) throws IOException {
         var mainResult = octoKit.commitFroala(path, froala);
 
-        var fails = this.notifyAllStream(new CommitEvent())
-                .filter(e -> !e.isOk()).collect(Collectors.toList());
-
-        // log fail here?
-
-        if (fails.isEmpty()) {
-            return new OctoEffectImpl(true);
-        } else {
-            return new OctoEffectImpl(false);
-        }
+        return this.notifyAllStream(new CommitEvent()).reduce(mainResult, OctoEffect::setPrevious);
     }
 
     @Override
     public OctoEffect commitFroala(Octopath path, Froala froala, List<OctoFile> list) throws IOException {
-
-        // track effects?
-
         var mainResult = octoKit.commitFroala(path, froala, list);
 
-        var fails = this.notifyAllStream(new CommitEvent())
-                .filter(e -> !e.isOk()).collect(Collectors.toList());
-
-        // log fail here?
-
-        if (fails.isEmpty()) {
-            return new OctoEffectImpl(true);
-        } else {
-            return new OctoEffectImpl(false);
-        }
+        return this.notifyAllStream(new CommitEvent()).reduce(mainResult, OctoEffect::setPrevious);
     }
 
 

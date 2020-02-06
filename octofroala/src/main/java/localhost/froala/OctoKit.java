@@ -1,6 +1,6 @@
 package localhost.froala;
 
-import localhost.froala.event.OctoEffect;
+import localhost.froala.effect.OctoEffect;
 
 import java.io.IOException;
 import java.util.List;
