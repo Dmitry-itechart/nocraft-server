@@ -11,8 +11,9 @@
 
     <modules>
         <module>octofroala</module>
-        <module>nocraft-rest</module>
         <module>octokit-github</module>
+        <module>jgit-bitbucket</module>
+        <module>nocraft-rest</module>
     </modules>
 
     <properties>
@@ -22,6 +23,7 @@
         <image.path>dzmitryitechart/nocraft-server:0.10-nosec</image.path>
 
         <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
+        <apache.commons.codec.version>1.14</apache.commons.codec.version>
         <github.rest.koshuke>1.106</github.rest.koshuke>
         <keycloack.version>8.0.1</keycloack.version>
         <lombok.version>1.18.10</lombok.version>
@@ -40,11 +42,23 @@
                 <artifactId>octokit-github</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>localhost</groupId>
+                <artifactId>jgit-bitbucket</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
+            <!-- for github -->
             <dependency>
                 <groupId>org.kohsuke</groupId>
                 <artifactId>github-api</artifactId>
                 <version>${github.rest.koshuke}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${apache.commons.codec.version}</version>
             </dependency>
 
             <dependency>

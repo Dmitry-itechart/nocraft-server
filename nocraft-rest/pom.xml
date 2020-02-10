@@ -17,9 +17,15 @@
             <groupId>localhost</groupId>
             <artifactId>octofroala</artifactId>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>localhost</groupId>-->
+        <!--            <artifactId>octokit-github</artifactId>-->
+        <!--        </dependency>-->
+
         <dependency>
             <groupId>localhost</groupId>
-            <artifactId>octokit-github</artifactId>
+            <artifactId>jgit-bitbucket</artifactId>
         </dependency>
 
         <dependency>

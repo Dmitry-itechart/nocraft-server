@@ -5,7 +5,7 @@
 ```text
 -Dfroala.git.username=none
 -Dfroala.git.token=none
--Dfroala.git.repository=test
--Dfroala.ui.url=example:4201
+-Dfroala.git.repository=/path/to/repository
+-Dfroala.ui.url=http://localhost:4201
 -Dlogging.level.root=DEBUG
 ```

@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -59,7 +61,7 @@ class OctoFroalaImplTest {
 
     @Disabled
     @Test
-    void testCanSaveBinary() throws IOException {
+    void testCanSaveBinary() throws IOException, NoSuchAlgorithmException {
         OctoFroalaImpl impl = new OctoFroalaImpl(kit, Collections.emptyList());
 
         List<String> list;
@@ -72,14 +74,12 @@ class OctoFroalaImplTest {
         var sContent = String.join("", list);
 
         OctoFile f = new OctoTextFileImpl(new OctopathImpl("", "image.png"))
-                .setFileContent(sContent);
+                .setFileContent(sContent.getBytes(StandardCharsets.UTF_8));
 
         String s = "piu piu " + UUID.randomUUID().toString();
         Froala fr = new FroalaTextImpl(s);
         Octopath path = new OctopathImpl("", "test.txt");
 
         impl.commitFroala(path, fr, Collections.singletonList(f));
-
-
     }
 }

@@ -7,18 +7,32 @@ import localhost.froala.impl.OctoTextFileImpl;
 import localhost.froala.impl.OctopathImpl;
 import localhost.rest.git.pojo.FroalaFile;
 
-import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.List;
 
-/**
- * a
+/*
  * data:image/jpeg;base64
  * data:image/png;base64
  * data:image/svg+xml;base64
  */
 public class FroalaFileDeserializer {
 
-    public static OctoFile decode(FroalaFile file) {
+    public static List<OctoFile> decodeList(List<FroalaFile> input) throws NoSuchAlgorithmException {
+        if (input.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<OctoFile> list = new ArrayList<>(input.size());
+        for (FroalaFile f : input) {
+            var file = decode(f);
+            list.add(file);
+        }
+        return list;
+    }
+
+    private static OctoFile decode(FroalaFile file) throws NoSuchAlgorithmException {
         String base64 = file.getBase64();
         String[] parts = base64.split(",");
 
@@ -29,14 +43,10 @@ public class FroalaFileDeserializer {
 
         Octopath path = new OctopathImpl(file.getFilePath(), file.getFileName());
         if (isBinaryFile(parts[0])) {
-
             return new OctoByteFileImpl(path).setFileContent(Base64.getDecoder().decode(data));
-
         } else {
-
-            String sFile = new String(Base64.getDecoder().decode(data), StandardCharsets.UTF_8);
-            return new OctoTextFileImpl(path).setFileContent(sFile);
-
+            byte[] bb = Base64.getDecoder().decode(data);
+            return new OctoTextFileImpl(path).setFileContent(bb);
         }
     }
 

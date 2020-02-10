@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import static localhost.Application.API;
 
@@ -29,13 +30,10 @@ public class SaveItToGitController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity commitFroala(@RequestBody FroalaInputBasket froalaList) throws IOException {
-        // log, or some more meaning value?
+    public ResponseEntity commitFroala(@RequestBody FroalaInputBasket froalaList) throws IOException, NoSuchAlgorithmException {
 
-        // one more, we need to determine floara type and use different flows for different
-        // froala types like text-based or with images.
-        service.commit(froalaList);
+        var effect = service.commit(froalaList);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(effect);
     }
 }

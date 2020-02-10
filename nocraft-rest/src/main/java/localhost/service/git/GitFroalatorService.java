@@ -1,5 +1,6 @@
 package localhost.service.git;
 
+import localhost.bitbucket.fs.JGitOctoRepository;
 import localhost.froala.OctoFile;
 import localhost.froala.OctoFroala;
 import localhost.froala.OctoFroalaListener;
@@ -8,18 +9,17 @@ import localhost.froala.effect.OctoEffect;
 import localhost.froala.impl.FroalaTextImpl;
 import localhost.froala.impl.OctoFroalaImpl;
 import localhost.froala.impl.OctopathImpl;
-import localhost.octokit.github.OctoKitGithubDeveloperTokenBuilder;
 import localhost.rest.git.FroalaFileDeserializer;
 import localhost.rest.git.pojo.FroalaBasket;
 import localhost.rest.git.pojo.FroalaInputBasket;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /*
  * Probably can resolve proper per-user repository here, check auht or other
@@ -38,19 +38,38 @@ public class GitFroalatorService {
 
     private OctoFroala octoFroala;
 
+    // remove dependency on octokit-github code (refactor to more flexible approach)
+//    @PostConstruct
+//    void init() throws IOException {
+//        val kit = OctoKitGithubDeveloperTokenBuilder.builder()
+//                .setLogin(config.getUsername())
+//                .setRepository(config.getRepository())
+//                .setOauthAccessToken(config.getToken())
+//                .build();
+//
+//        // builder or something...
+//        octoFroala = new OctoFroalaImpl(kit, listeners);
+//    }
+
     @PostConstruct
     void init() throws IOException {
-        val kit = OctoKitGithubDeveloperTokenBuilder.builder()
-                .setLogin(config.getUsername())
-                .setRepository(config.getRepository())
-                .setOauthAccessToken(config.getToken())
-                .build();
 
-        // builder or something...
-        octoFroala = new OctoFroalaImpl(kit, listeners);
+        Path filepath = Path.of(config.getRepository());
+
+        JGitOctoRepository jgit = new JGitOctoRepository(
+                filepath,
+                config.getUsername(),
+                config.getToken()
+        );
+        // refactor here to init automatically
+        jgit.init();
+
+
+        octoFroala = new OctoFroalaImpl(jgit, listeners);
     }
 
-    public OctoEffect commit(FroalaInputBasket basket) throws IOException {
+
+    public OctoEffect commit(FroalaInputBasket basket) throws IOException, NoSuchAlgorithmException {
         Octopath path = new OctopathImpl(basket.getPath(), basket.getComponentName());
 
         FroalaBasket cutOff = new FroalaBasket();
@@ -64,8 +83,7 @@ public class GitFroalatorService {
         if (basket.getFiles().isEmpty()) {
             return octoFroala.commitFroala(path, froala);
         } else {
-            List<OctoFile> files = basket.getFiles().stream()
-                    .map(FroalaFileDeserializer::decode).collect(Collectors.toList());
+            List<OctoFile> files = FroalaFileDeserializer.decodeList(basket.getFiles());
             return octoFroala.commitFroala(path, froala, files);
         }
     }

@@ -13,4 +13,6 @@ public interface OctoFile<T> {
     Octopath getFilePath();
 
     T getFileContent();
+
+    byte[] hash();
 }
