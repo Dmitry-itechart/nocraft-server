@@ -10,6 +10,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import javax.annotation.PostConstruct;
 
 @RequiredArgsConstructor
 @Component
+@ConditionalOnProperty("froala.ui.url")
 public class DockerGitPullKicker implements OctoFroalaListener {
 
     private final FroalaUINodeServerProperties properties;
