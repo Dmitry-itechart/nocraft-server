@@ -13,11 +13,11 @@ import localhost.rest.git.FroalaFileDeserializer;
 import localhost.rest.git.pojo.FroalaBasket;
 import localhost.rest.git.pojo.FroalaInputBasket;
 import lombok.RequiredArgsConstructor;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -52,14 +52,12 @@ public class GitFroalatorService {
 //    }
 
     @PostConstruct
-    void init() throws IOException {
-
-        Path filepath = Path.of(config.getRepository());
-
+    void init() throws GitAPIException {
         JGitOctoRepository jgit = new JGitOctoRepository(
-                filepath,
+                //filepath,
                 config.getUsername(),
-                config.getToken()
+                config.getToken(),
+                config.getRepository()
         );
         // refactor here to init automatically
         jgit.init();

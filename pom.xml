@@ -20,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <image.path>dzmitryitechart/nocraft-server:0.11-nosec</image.path>
+        <image.path>dzmitryitechart/nocraft-server:0.12-nosec</image.path>
 
         <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
         <apache.commons.codec.version>1.14</apache.commons.codec.version>

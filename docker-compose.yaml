@@ -2,14 +2,14 @@ version: "3.7"
 services:
   nocraft:
     build:
-      context: ./nocraft-rest
+      context: .
+      dockerfile: nocraft-rest/Dockerfile
     image: dzmitryitechart/nocraft-server:local
     container_name: nocraft
     ports:
       - 127.0.0.1:9080:9080
       - 127.0.0.1:19080:19080
     environment:
-      - image.path=https://picsum.photos/300
       - keycloak.auth-server-url=http://keycloak:8080/auth
       - server.port=9080
       - logging.level.root=INFO

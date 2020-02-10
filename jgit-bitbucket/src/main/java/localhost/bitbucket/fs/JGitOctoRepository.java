@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static localhost.froala.util.CommitMessageGenerator.getCommitMessage;
@@ -37,18 +38,27 @@ import static localhost.froala.util.CommitMessageGenerator.getCommitMessage;
 @RequiredArgsConstructor
 public class JGitOctoRepository implements OctoKit {
 
-    private final Path path;
+    private Path path;
     private final String username;
     private final String password;
+    private final String remoteRepository;
 
     private CredentialsProvider credentialsProvider;
 
     private Git git;
 
     // make it @PostConstruct
-    public void init() throws IOException {
+    public void init() throws GitAPIException {
         credentialsProvider = new UsernamePasswordCredentialsProvider(username, password);
-        git = Git.open(path.toFile());
+
+        path = Path.of("/tmp/git-" + UUID.randomUUID().toString());
+
+        git = Git.cloneRepository()
+                .setDirectory(path.toFile())
+                .setCredentialsProvider(credentialsProvider)
+                .setURI(remoteRepository).call();
+
+//        git = Git.open(path.toFile());
 
         if (git.getRepository().isBare()) {
             throw new RuntimeException("Empty repository: " + path.toString());
@@ -83,7 +93,11 @@ public class JGitOctoRepository implements OctoKit {
             //refactor to more informative result message
 
             git.add().addFilepattern(".").call();
-            git.commit().setAllowEmpty(false).setMessage(getCommitMessage(op)).call();
+            git.commit().setAllowEmpty(false)
+                    .setMessage(getCommitMessage(op))
+                    .setAuthor(username, username)
+                    .setCommitter(username, username)
+                    .call();
             git.push().setCredentialsProvider(credentialsProvider).call();
         } catch (GitAPIException e) {
 
@@ -93,7 +107,7 @@ public class JGitOctoRepository implements OctoKit {
         }
 
 
-        return new CommitEffectImpl().isOk(false);
+        return new CommitEffectImpl().isOk(true);
     }
 
     private Path toFileSystemPath(Octopath op) {
