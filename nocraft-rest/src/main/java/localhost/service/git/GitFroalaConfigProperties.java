@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Configuration
@@ -18,7 +19,10 @@ public class GitFroalaConfigProperties {
     private String username;
 
     @NotBlank
-    private String token;
+    private String keyPath;
+
+    @NotNull
+    private String keyPassword;
 
     @NotBlank
     private String repository;

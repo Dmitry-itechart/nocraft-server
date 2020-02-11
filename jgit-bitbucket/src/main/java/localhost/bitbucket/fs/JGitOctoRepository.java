@@ -13,9 +13,8 @@ import localhost.froala.util.ByteDigester;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.TransportConfigCallback;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.transport.CredentialsProvider;
-import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -38,26 +37,30 @@ import static localhost.froala.util.CommitMessageGenerator.getCommitMessage;
 public class JGitOctoRepository implements OctoKit {
 
     private Path path;
-    private final String username;
-    private final String password;
-    private final String remoteRepository;
 
-    private CredentialsProvider credentialsProvider;
+    private final String username;
+    private final String keyPath;
+    private final String password;
+
+    private final String remoteRepository;
 
     private Git git;
 
+    private FallbackPushNotWorking fallbackPushNotWorking;
+
     // make it @PostConstruct
     public void init() throws GitAPIException {
-        credentialsProvider = new UsernamePasswordCredentialsProvider(username, password);
+        fallbackPushNotWorking = new FallbackPushNotWorking();
 
         path = Path.of("/tmp/git-" + UUID.randomUUID().toString());
 
+        OctoSshSessionFactory sf = new OctoSshSessionFactory(keyPath, password);
+        TransportConfigCallback tcc = new SshTransportConfigCallback(sf);
         git = Git.cloneRepository()
                 .setDirectory(path.toFile())
-                .setCredentialsProvider(credentialsProvider)
-                .setURI(remoteRepository).call();
-
-//        git = Git.open(path.toFile());
+                .setTransportConfigCallback(tcc)
+                .setURI(remoteRepository)
+                .call();
 
         if (git.getRepository().isBare()) {
             throw new RuntimeException("Empty repository: " + path.toString());
@@ -97,12 +100,16 @@ public class JGitOctoRepository implements OctoKit {
                     .setAuthor(username, username)
                     .setCommitter(username, username)
                     .call();
-            git.push().setCredentialsProvider(credentialsProvider).call();
         } catch (GitAPIException e) {
-
             log.error("Unable to save changes: " + git.toString(), e);
-
             return new CommitEffectImpl().isOk(false);
+        }
+
+        try {
+            git.push().call();
+        } catch (GitAPIException e) {
+            log.error("JSCH unable to push via ssh: " + git.toString(), e);
+            return fallbackPushNotWorking.pushFromOs(this.path);
         }
 
 

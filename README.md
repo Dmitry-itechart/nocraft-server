@@ -28,7 +28,7 @@ Images will be published here: https://hub.docker.com/u/dzmitryitechart
 
 #### How to run from docker-compose?
 
-Docker compose will build local image tagged as `dzmitryitechart/nocraft-server:local`\
+Docker compose will build local image tagged as `dzmitryitechart/nocraft-server:<tag>`\
 and run it locally with java remote debug enabled.
 
 first, build it with maven:
@@ -50,3 +50,6 @@ docker-compose up -d
 
 Pay attention you have to have locally running keycloak instance to have ability to authenticate. You may consider
  [this](https://github.com/Dmitry-itechart/docker-compose) project to run all together.
+ 
+
+ 

@@ -56,7 +56,8 @@ public class GitFroalatorService {
         JGitOctoRepository jgit = new JGitOctoRepository(
                 //filepath,
                 config.getUsername(),
-                config.getToken(),
+                config.getKeyPath(),
+                config.getKeyPassword(),
                 config.getRepository()
         );
         // refactor here to init automatically

@@ -4,8 +4,10 @@ services:
     build:
       context: .
       dockerfile: nocraft-rest/Dockerfile
-    image: dzmitryitechart/nocraft-server:local
+    image: dzmitryitechart/nocraft-server:0.17-nosec
     container_name: nocraft
+    volumes:
+      - ${GIT_KEYPATH}:/root/.ssh/github
     ports:
       - 127.0.0.1:9080:9080
       - 127.0.0.1:19080:19080
@@ -14,7 +16,8 @@ services:
       - server.port=9080
       - logging.level.root=INFO
       - froala.git.username=${GIT_USER}
-      - froala.git.token=${GIT_TOKEN}
-      - froala.git.repository=${GIT_REPO}
+      - froala.git.key-path=/root/.ssh/github
+      - froala.git.key-password=${GIT_KEYPASSWORD}
+      - froala.git.repository=${GIT_SSH_REPO}
       - froala.ui.url=http://localhost:4201
       - JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:19080"
