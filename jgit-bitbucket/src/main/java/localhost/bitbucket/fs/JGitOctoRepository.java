@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -80,7 +79,7 @@ public class JGitOctoRepository implements OctoKit {
     public OctoEffect commitFroala(Octopath op, Froala froala, List<OctoFile> list) throws IOException {
         var path = toFileSystemPath(op);
         // here can throw IOException
-        Files.write(path, froala.getFroala().getBytes(StandardCharsets.UTF_8), StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(path, froala.getFroala().getBytes(StandardCharsets.UTF_8));
 
         // refactor it.
         try {
@@ -144,11 +143,7 @@ public class JGitOctoRepository implements OctoKit {
                     } else {
                         throw new IOException("Unknown file: " + f.getFilePath());
                     }
-                    Files.write(
-                            p,
-                            content,
-                            StandardOpenOption.TRUNCATE_EXISTING
-                    );
+                    Files.write(p, content);
                     seen.add(f.getFilePath());
                 }
             }
