@@ -25,7 +25,7 @@
         <github.rest.koshuke>1.106</github.rest.koshuke>
         <keycloack.version>8.0.1</keycloack.version>
         <lombok.version>1.18.10</lombok.version>
-        <springfox-swagger.version>2.9.2</springfox-swagger.version>
+        <springfox-swagger.version>2.10.0</springfox-swagger.version>
     </properties>
 
     <dependencyManagement>
